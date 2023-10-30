@@ -44,16 +44,14 @@ def format_paragraphs(paragraphs):
 
 
 def save_articles(row, folder_name):
-        try:
-            if os.listdir(folder_name):
-                logging.info("Article Texts already exists.")
-
-            else:
-                filename = os.path.join(folder_name, f"{row['URL_ID']}.txt")
-                with open(filename, 'w', encoding='utf-8') as file:
-                    article_text = row['Articles']
-                    file.write(article_text)
-                
-
-        except Exception as e:
-            raise CustomException(e,sys)
+    try:
+        filename = os.path.join(folder_name, f"{row['URL_ID']}.txt")
+        if not os.path.exists(filename):
+            with open(filename, 'w', encoding='utf-8') as file:
+                article_text = row['Articles']
+                file.write(article_text)
+        else:
+            logging.info(f"File {filename} already exists.")
+            
+    except Exception as e:
+        raise CustomException(e, sys)

@@ -10,7 +10,7 @@ from src.utils import get_articles, format_paragraphs, save_articles
 
 @dataclass
 class DataExtractionConfig:
-    new_data_path = os.path.join('artifacts', "new_data.csv")
+    new_data_path: str=os.path.join('artifact', "new.csv")
 
 
 
@@ -35,11 +35,11 @@ class DataExtraction:
             df.apply(save_articles, axis=1, folder_name=folder_name)    
             logging.info("Texts Have been Created")
 
-            df.to_csv(self.ingestion_config.new_data_path, index=False, header=True)
+            df.to_csv(self.data_extraction_config.new_data_path, index=False, header=True)
             logging.info("Extraction of data is Completed.")
 
             return(
-                self.ingestion_config.new_data_path
+                self.data_extraction_config.new_data_path
             )
         except Exception as e:
             raise CustomException(e,sys)
