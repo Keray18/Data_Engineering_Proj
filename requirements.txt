@@ -3,3 +3,4 @@ numpy
 matplotlib
 seaborn
 beautifulsoup4
+nltk
